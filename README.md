@@ -26,38 +26,6 @@
   - ##### 댓글 수정: [PUT] /api/images/comments/:commentId { comment }
   - ##### 댓글 삭제: [DELETE] /api/images/comments/:commentId
 
-- #### DB 설계 항목
-  - ##### user
-    | Name      | Type        | Note       |
-    |-----------|-------------|------------|
-    | id        | integer     | primaryKey |
-    | userId    | varchar(20) |            |
-    | userName  | varchar(20) |            |
-    | password  | varchar(20) |            |
-    | type      | varchar(10) |            |
-    | createdAt | datetime    |            |
-    | updatedAt | datetime    |            |
-
-  - ##### image
-    | Name      | Type        | Note       |
-    |-----------|-------------|------------|
-    | id        | integer     | primaryKey |
-    | userId    | varchar(20) |            |
-    | fileName  | varchar(20) |            |
-    | type      | varchar(10) |            |
-    | createdAt | datetime    |            |
-    | updatedAt | datetime    |            |
-
-  - ##### comment
-    | Name      | Type         | Note       |
-    |-----------|--------------|------------|
-    | id        | integer      | primaryKey |
-    | userId    | varchar(20)  |            |
-    | imageId   | integer      |            |
-    | comment   | varchar(255) |            |
-    | createdAt | datetime     |            |
-    | updatedAt | datetime     |            |
-
 ### [프로젝트 빌드 & 테스트 & 실행 방법]
 
 - #### npm i && npm run test:e2e && npm start
