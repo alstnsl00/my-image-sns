@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import * as authUtil from '../../utils/auth.util';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { User } from '../entities/user.entity';
-import { Result } from '../common/result.interface';
+import { Result } from '../common/result.class';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 
 @Injectable()

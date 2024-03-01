@@ -4,7 +4,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ImagesService } from './images.service';
-import { Result } from '../common/result.interface';
+import { Result } from '../common/result.class';
 import { UploadImageDto } from '../dtos/upload-image.dto';
 import { UserImageDto } from '../dtos/user-image.dto';
 import { TotalImageDto } from '../dtos/total-image.dto';
@@ -15,14 +15,14 @@ import { AddCommentDto } from '../dtos/add-comment.dto';
 export class ImagesController {
   constructor(private readonly imagesService: ImagesService) {}
 
-  @Post('/uploadSingle')
+  @Post('/upload-single')
   @ApiOperation({ summary: '싱글 파일 업로드' })
   @UseInterceptors(FileInterceptor('image'))
   async uploadSingle(@UploadedFile() file: Express.Multer.File, @Body(new ValidationPipe()) uploadImageData: UploadImageDto): Promise<Result> {
     return await this.imagesService.upload(file, uploadImageData);
   }
 
-  @Post('/uploadMulti')
+  @Post('/upload-multi')
   @ApiOperation({ summary: '멀티 파일 업로드' })
   @UseInterceptors(FileFieldsInterceptor([{ name: 'images', maxCount: 10 }]))
   async uploadMulti(@UploadedFiles() files: Array<Express.Multer.File>, @Body(new ValidationPipe()) uploadImageData: UploadImageDto): Promise<Result> {

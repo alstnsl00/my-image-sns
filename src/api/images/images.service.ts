@@ -4,7 +4,7 @@ import * as fs from 'fs';
 
 import { Image } from '../entities/image.entity';
 import { Comment } from '../entities/comment.entity';
-import { Result } from '../common/result.interface';
+import { Result } from '../common/result.class';
 import { UploadImageDto } from '../dtos/upload-image.dto';
 import { UserImageDto } from '../dtos/user-image.dto';
 import { TotalImageDto } from '../dtos/total-image.dto';

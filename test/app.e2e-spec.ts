@@ -116,10 +116,10 @@ describe('my-image-sns (e2e)', () => {
     });
   });
 
-  describe('[POST] /api/images/uploadSingle (TOKEN)', () => {
+  describe('[POST] /api/images/upload-single (TOKEN)', () => {
     it('싱글 파일 업로드', async () => {
       const response = await request(app.getHttpServer())
-        .post('/api/images/uploadSingle')
+        .post('/api/images/upload-single')
         .set('Authorization', `Bearer ${token}`)
         .field('userId', 'testuser')
         .field('type', 'profile')
@@ -134,10 +134,10 @@ describe('my-image-sns (e2e)', () => {
     });
   });
 
-  describe('[POST] /api/images/uploadMulti (TOKEN)', () => {
+  describe('[POST] /api/images/upload-multi (TOKEN)', () => {
     it('멀티 파일 업로드', async () => {
       const response = await request(app.getHttpServer())
-        .post('/api/images/uploadMulti')
+        .post('/api/images/upload-multi')
         .set('Authorization', `Bearer ${token}`)
         .field('userId', 'testuser')
         .field('type', 'profile')

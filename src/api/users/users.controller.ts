@@ -1,7 +1,7 @@
 import { Body, Controller, Post, ValidationPipe, Param, Put, ParseIntPipe, BadRequestException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
-import { Result } from '../common/result.interface';
+import { Result } from '../common/result.class';
 import { UpdateUserDto } from '../dtos/update-user.dto';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
