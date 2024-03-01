@@ -28,7 +28,7 @@
 
   
 - #### DB 설계 항목
-  - ##### user
+  - ##### User
     | Name      | Type        | Note       |
     |-----------|-------------|------------|
     | id        | integer     | primaryKey |
@@ -39,7 +39,7 @@
     | createdAt | datetime    |            |
     | updatedAt | datetime    |            |
 
-  - ##### image
+  - ##### Image
     | Name      | Type        | Note       |
     |-----------|-------------|------------|
     | id        | integer     | primaryKey |
@@ -49,7 +49,7 @@
     | createdAt | datetime    |            |
     | updatedAt | datetime    |            |
 
-  - ##### comment
+  - ##### Comment
     | Name      | Type         | Note       |
     |-----------|--------------|------------|
     | id        | integer      | primaryKey |
