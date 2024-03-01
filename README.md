@@ -6,9 +6,9 @@
 
 ### [프로젝트 내용]
 
-  - #### 인증 처리는 JWT를 데이터 저장은 sqlite를 사용함
-  - #### 회원가입과 로그인을 제외하고는 로그인을 하여 JWT 토큰을 기반으로 API를 요청해야 함
-  - #### Swagger(http://localhost:3000/api-docs) 기반 API 확인이 가능하며 테스트 코드는 E2E로 처리함
+  - #### 인증 처리는 JWT를 데이터 처리는 SQLite를 사용함
+  - #### 회원가입과 로그인을 제외하고는 JWT 토큰을 기반으로 API를 요청해야 함
+  - #### Swagger(http://localhost:3000/api-docs) 기반 API 관련 확인이 가능함
 
 - #### API 구현 항목
   - ##### 회원가입: [POST] /api/users { userId, userName, password, type? }
@@ -26,10 +26,43 @@
   - ##### 댓글 수정: [PUT] /api/images/comments/:commentId { comment }
   - ##### 댓글 삭제: [DELETE] /api/images/comments/:commentId
 
+  
+- #### DB 설계 항목
+  - ##### user
+    | Name      | Type        | Note       |
+    |-----------|-------------|------------|
+    | id        | integer     | primaryKey |
+    | userId    | varchar(20) |            |
+    | userName  | varchar(20) |            |
+    | password  | varchar(20) |            |
+    | type      | varchar(10) |            |
+    | createdAt | datetime    |            |
+    | updatedAt | datetime    |            |
+
+  - ##### image
+    | Name      | Type        | Note       |
+    |-----------|-------------|------------|
+    | id        | integer     | primaryKey |
+    | userId    | varchar(20) |            |
+    | fileName  | varchar(20) |            |
+    | type      | varchar(10) |            |
+    | createdAt | datetime    |            |
+    | updatedAt | datetime    |            |
+
+  - ##### comment
+    | Name      | Type         | Note       |
+    |-----------|--------------|------------|
+    | id        | integer      | primaryKey |
+    | userId    | varchar(20)  |            |
+    | imageId   | integer      |            |
+    | comment   | varchar(255) |            |
+    | createdAt | datetime     |            |
+    | updatedAt | datetime     |            |
+
 ### [프로젝트 빌드 & 테스트 & 실행 방법]
 
 - #### npm i && npm run test:e2e && npm start
 
 ### [미해결 이슈 정리 및 향후 계획]
 
-- #### Unit 테스트 처리, 추가 기능 개발 및 고도화 작업
+- #### Unit 테스트 처리, DB 재설계 및 고도화 작업
