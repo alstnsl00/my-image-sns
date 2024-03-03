@@ -214,7 +214,7 @@ export class ImagesService {
     }
   }
 
-  async modifyComment(commentId: number, imageId: number,  commentData: CommentDto): Promise<Result> {
+  async modifyComment(imageId: number, commentId: number, commentData: CommentDto): Promise<Result> {
     const { userId, comment } = commentData;
     const modifyComment = await this.commentRepository.findOne({
       where: { id: commentId, imageId },
@@ -243,7 +243,7 @@ export class ImagesService {
     }
   }
 
-  async removeComment(commentId: number, imageId: number, commentData: CommentDto): Promise<Result> {
+  async removeComment(imageId: number, commentId: number, commentData: CommentDto): Promise<Result> {
     const { userId } = commentData;
     try {
       const removeComment = await this.commentRepository.findOne({
