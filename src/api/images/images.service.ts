@@ -229,7 +229,7 @@ export class ImagesService {
         });
   
         const newComment = await this.commentRepository.findOne({
-          where: { id: commentId },
+          where: { id: commentId, imageId },
         });
   
         return { status: 0, msg: '댓글 정보가 업데이트 되었습니다.', data: newComment };
