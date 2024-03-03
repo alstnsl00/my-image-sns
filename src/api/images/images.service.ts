@@ -8,7 +8,7 @@ import { Result } from '../common/result.class';
 import { UploadImageDto } from '../dtos/upload-image.dto';
 import { UserImageDto } from '../dtos/user-image.dto';
 import { TotalImageDto } from '../dtos/total-image.dto';
-import { AddCommentDto } from '../dtos/add-comment.dto';
+import { CommentDto } from '../dtos/comment.dto';
 
 @Injectable()
 export class ImagesService {
@@ -71,8 +71,8 @@ export class ImagesService {
     }
   }
 
-  async userImage(userImageData: UserImageDto): Promise<Result> {
-    const { userId, date, type, sort } = userImageData;
+  async userImage(userId: string, userImageData: UserImageDto): Promise<Result> {
+    const { date, type, sort } = userImageData;
 
     let images: Array<any>;
     try {
@@ -183,8 +183,8 @@ export class ImagesService {
     }
   }
 
-  async addComment(imageId: number, addCommentData: AddCommentDto): Promise<Result> {
-    const { userId, comment } = addCommentData;
+  async addComment(imageId: number, commentData: CommentDto): Promise<Result> {
+    const { userId, comment } = commentData;
 
     try {
       const newComment = await this.commentRepository.save({
@@ -214,35 +214,44 @@ export class ImagesService {
     }
   }
 
-  async modifyComment(commentId: number, comment: string): Promise<Result> {
-    const commentData = await this.commentRepository.findOne({
-      where: { id: commentId },
+  async modifyComment(commentId: number, imageId: number,  commentData: CommentDto): Promise<Result> {
+    const { userId, comment } = commentData;
+    const modifyComment = await this.commentRepository.findOne({
+      where: { id: commentId, imageId },
     });
-    if (!commentData) return { status: 1, msg: '해당 댓글이 없습니다.' };
+    if (!modifyComment) return { status: 1, msg: '해당 댓글이 없습니다.' };
     try {
-      await this.commentRepository.update(commentData.id, {
-        comment: comment['comment'],
-        updatedAt: new Date(),
-      });
+      // 보안 처리 추가해야 함
+      if (modifyComment.userId === userId) {
+        await this.commentRepository.update(modifyComment.id, {
+          comment: comment['comment'],
+          updatedAt: new Date(),
+        });
+  
+        const newComment = await this.commentRepository.findOne({
+          where: { id: commentId },
+        });
+  
+        return { status: 0, msg: '댓글 정보가 업데이트 되었습니다.', data: newComment };
+      } else {
+        return { status: 1, msg: '댓글 수정은 본인만 가능합니다.' };
+      }
 
-      const newComment = await this.commentRepository.findOne({
-        where: { id: commentId },
-      });
-
-      return { status: 0, msg: '댓글 정보가 업데이트 되었습니다.', data: newComment };
+      
     } catch (e) {
       return { status: 1, msg: `댓글 정보 업데이트간 예기치 않은 오류가 발생하였습니다. [${e}]` };
     }
   }
 
-  async removeComment(commentId: number, userId: string): Promise<Result> {
+  async removeComment(commentId: number, imageId: number, commentData: CommentDto): Promise<Result> {
+    const { userId } = commentData;
     try {
-      const commentData = await this.commentRepository.findOne({
-        where: { id: commentId },
+      const removeComment = await this.commentRepository.findOne({
+        where: { id: commentId, imageId },
       });
 
       // 보안 처리 추가해야 함
-      if (commentData.userId === userId['userId']) {
+      if (removeComment.userId === userId) {
         await this.commentRepository.delete({ id: commentId });
         return { status: 0, msg: '댓글이 정상적으로 삭제되었습니다.' };
       } else {

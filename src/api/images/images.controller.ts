@@ -8,7 +8,7 @@ import { Result } from '../common/result.class';
 import { UploadImageDto } from '../dtos/upload-image.dto';
 import { UserImageDto } from '../dtos/user-image.dto';
 import { TotalImageDto } from '../dtos/total-image.dto';
-import { AddCommentDto } from '../dtos/add-comment.dto';
+import { CommentDto } from '../dtos/comment.dto';
 
 @Controller('images')
 @ApiTags('이미지 관련 처리')
@@ -29,10 +29,10 @@ export class ImagesController {
     return await this.imagesService.uploads(files, uploadImageData);
   }
 
-  @Get('/user')
+  @Get('/:userId')
   @ApiOperation({ summary: '사용자 업로드 이미지 조회' })
-  async user(@Query() userImageData: UserImageDto): Promise<Result> {
-    return await this.imagesService.userImage(userImageData);
+  async user(@Param() userId: string, @Query() userImageData: UserImageDto): Promise<Result> {
+    return await this.imagesService.userImage(userId, userImageData);
   }
 
   @Get('/total')
@@ -64,12 +64,12 @@ export class ImagesController {
 
   @Post('/:imageId/comments')
   @ApiOperation({ summary: '이미지의 댓글 등록' })
-  async add(@Param('imageId', new ParseIntPipe()) imageId: number, @Body(new ValidationPipe()) addCommentData: AddCommentDto): Promise<Result> {
+  async add(@Param('imageId', new ParseIntPipe()) imageId: number, @Body(new ValidationPipe()) commentData: CommentDto): Promise<Result> {
     if (+imageId < 1) {
       throw new BadRequestException('imageId는 0보다 큰 값이어야 합니다.');
     }
 
-    return await this.imagesService.addComment(imageId, addCommentData);
+    return await this.imagesService.addComment(imageId, commentData);
   }
 
   @Get('/:imageId/comments')
@@ -82,23 +82,23 @@ export class ImagesController {
     return await this.imagesService.comment(imageId);
   }
 
-  @Put('/comments/:commentId')
+  @Put('/:imageId/comments/:commentId')
   @ApiOperation({ summary: '이미지의 댓글 수정' })
-  async modify(@Param('commentId', new ParseIntPipe()) commentId: number, @Body() comment: string): Promise<Result> {
+  async modify(@Param('imageId', new ParseIntPipe()) imageId: number, @Param('commentId', new ParseIntPipe()) commentId: number, @Body(new ValidationPipe()) commentData: CommentDto): Promise<Result> {
     if (+commentId < 1) {
       throw new BadRequestException('commentId는 0보다 큰 값이어야 합니다.');
     }
 
-    return await this.imagesService.modifyComment(commentId, comment);
+    return await this.imagesService.modifyComment(imageId, commentId, commentData);
   }
 
-  @Delete('/comments/:commentId')
+  @Delete('/:imageId/comments/:commentId')
   @ApiOperation({ summary: '이미지의 댓글 삭제' })
-  async remove(@Param('commentId', new ParseIntPipe()) commentId: number, @Body() comment: string): Promise<Result> {
+  async remove(@Param('imageId', new ParseIntPipe()) imageId: number, @Param('commentId', new ParseIntPipe()) commentId: number, @Body(new ValidationPipe()) commentData: CommentDto): Promise<Result> {
     if (+commentId < 1) {
       throw new BadRequestException('commentId는 0보다 큰 값이어야 합니다.');
     }
 
-    return await this.imagesService.removeComment(commentId, comment);
+    return await this.imagesService.removeComment(imageId, commentId, commentData);
   }
 }

@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional } from 'class-validator';
+import { IsString } from 'class-validator';
 
-export class AddCommentDto {
+export class CommentDto {
   @IsString()
   @ApiProperty({ description: '사용자 아이디' })
   readonly userId: string;

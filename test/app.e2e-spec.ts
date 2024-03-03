@@ -154,9 +154,9 @@ describe('my-image-sns (e2e)', () => {
     });
   });
 
-  describe('[GET] /api/images/user (TOKEN)', () => {
+  describe('[GET] /api/images/:userId (TOKEN)', () => {
     it('사용자 업로드 이미지 조회', async () => {
-      const response = await request(app.getHttpServer()).get('/api/images/user').set('Authorization', `Bearer ${token}`).query({ userId: 'testuser', date: '2023-08-04' });
+      const response = await request(app.getHttpServer()).get('/api/images/testuser').set('Authorization', `Bearer ${token}`).query({ date: '2023-08-04' });
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({

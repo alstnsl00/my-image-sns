@@ -17,14 +17,14 @@
   - ##### 로그아웃: [POST] /api/logout
   - ##### 이미지 등록: [POST] /api/images/upload-single { image, userId, type? }
   - ##### 이미지 등록: [POST] /api/images/upload-multi { images, userId, type? }
-  - ##### 유저 이미지 확인: [GET] /api/images/user { userId, date, type, sort? }
-  - ##### 전체 이미지 확인: [GET] /api/images/total { date, sort?, num?, offset? }
+  - ##### 유저 이미지 확인: [GET] /api/images/:userId { date, type, sort? }
+  - ##### 전체 이미지 확인: [GET] /api/images/total { date, num?, offset?, sort? }
   - ##### 이미지 수정: [PUT] /api/images/:imageId { image, type }
   - ##### 이미지 삭제: [DELETE] /api/images/:imageId
   - ##### 댓글 등록: [POST] /api/images/:imageId/comments { userId, comment }
   - ##### 댓글 조회: [GET] /api/images/:imageId/comments
-  - ##### 댓글 수정: [PUT] /api/images/comments/:commentId { comment }
-  - ##### 댓글 삭제: [DELETE] /api/images/comments/:commentId
+  - ##### 댓글 수정: [PUT] /api/images/:imageId/comments/:commentId { comment }
+  - ##### 댓글 삭제: [DELETE] /api/images/:imageId/comments/:commentId
 
   
 - #### DB 설계 항목
