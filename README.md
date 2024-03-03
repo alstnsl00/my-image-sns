@@ -23,8 +23,8 @@
   - ##### 이미지 삭제: [DELETE] /api/images/:imageId
   - ##### 댓글 등록: [POST] /api/images/:imageId/comments { userId, comment }
   - ##### 댓글 조회: [GET] /api/images/:imageId/comments
-  - ##### 댓글 수정: [PUT] /api/images/:imageId/comments/:commentId { comment }
-  - ##### 댓글 삭제: [DELETE] /api/images/:imageId/comments/:commentId
+  - ##### 댓글 수정: [PUT] /api/images/:imageId/comments/:commentId { userId, comment }
+  - ##### 댓글 삭제: [DELETE] /api/images/:imageId/comments/:commentId { userId }
 
   
 - #### DB 설계 항목
