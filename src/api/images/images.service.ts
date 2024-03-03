@@ -234,12 +234,12 @@ export class ImagesService {
   
         return { status: 0, msg: '댓글 정보가 업데이트 되었습니다.', data: newComment };
       } else {
-        return { status: 1, msg: '댓글 수정은 본인만 가능합니다.' };
+        return { status: 2, msg: '댓글 수정은 본인만 가능합니다.' };
       }
 
       
     } catch (e) {
-      return { status: 1, msg: `댓글 정보 업데이트간 예기치 않은 오류가 발생하였습니다. [${e}]` };
+      return { status: 3, msg: `댓글 수정간 예기치 않은 오류가 발생하였습니다. [${e}]` };
     }
   }
 
