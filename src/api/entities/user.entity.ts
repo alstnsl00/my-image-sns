@@ -20,10 +20,10 @@ export class User {
   })
   userName: string;
 
-  @Column({ nullable: false, comment: '사용자 비밀번호' })
+  @Column({ length: 20, nullable: false, comment: '사용자 비밀번호' })
   password: string;
 
-  @Column({ nullable: false, length: 10, comment: '사용자/관리자 구분', default: 'user' }) // user / manager
+  @Column({ length: 10, nullable: false, comment: '사용자/관리자 구분', default: 'user' }) // user / manager
   type: string;
 
   @CreateDateColumn({ name: 'createdAt', comment: '생성일' }) // type: 'timestamptz' - MySQL만 지원

@@ -44,7 +44,7 @@
     |-----------|-------------|------------|
     | id        | integer     | primaryKey |
     | userId    | varchar(20) |            |
-    | fileName  | varchar(20) |            |
+    | fileName  | varchar(50) |            |
     | type      | varchar(10) |            |
     | createdAt | datetime    |            |
     | updatedAt | datetime    |            |

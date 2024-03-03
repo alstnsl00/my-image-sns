@@ -12,7 +12,7 @@ export class Image {
   })
   userId: string;
 
-  @Column({ nullable: false, comment: '이미지 경로' })
+  @Column({ length: 50, nullable: false, comment: '이미지 경로' })
   filename: string;
 
   @Column({ length: 10, nullable: false, comment: '이미지 타입', default: 'etc' }) // basic / content / profile / icon / symbol / logo / etc
