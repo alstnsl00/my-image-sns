@@ -3,9 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Request, Response, NextFunction } from 'express';
 
 import { AppController } from './app.controller';
-import { UsersModule } from './api/users/users.module';
 import { ApiModule } from './api/api.module';
-import { ImagesModule } from './api/images/images.module';
 import { JwtMiddleware } from './middlewares/jwt.middleware';
 
 @Injectable()

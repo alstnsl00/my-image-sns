@@ -3,14 +3,10 @@ import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeor
 @Entity()
 export class Image {
   @PrimaryGeneratedColumn()
-  id: number;
+  idx: number;
 
-  @Column('varchar', {
-    length: 20,
-    nullable: false,
-    comment: '사용자 아이디',
-  })
-  userId: string;
+  @Column({ nullable: false, comment: '사용자 인덱스' })
+  userIdx: number;
 
   @Column({ length: 50, nullable: false, comment: '이미지 경로' })
   filename: string;

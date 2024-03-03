@@ -3,17 +3,13 @@ import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeor
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
-  id: number;
+  idx: number;
 
-  @Column('varchar', {
-    length: 20,
-    nullable: false,
-    comment: '사용자 아이디',
-  })
-  userId: string;
+  @Column({ nullable: false, comment: '사용자 인덱스' })
+  userIdx: number;
 
-  @Column({ nullable: false, comment: '이미지 아이디' })
-  imageId: number;
+  @Column({ nullable: false, comment: '이미지 인덱스' })
+  imageIdx: number;
 
   @Column({ length: 255, nullable: false, comment: '이미지 댓글' })
   comment: string;

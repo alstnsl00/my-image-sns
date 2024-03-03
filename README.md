@@ -13,25 +13,24 @@
 - #### API 구현 항목
   - ##### 회원가입: [POST] /api/users { userId, userName, password, type? }
   - ##### 회원정보 수정: [PUT] /api/users/:id { userName, password? }
-  - ##### 로그인: [POST] /api/login { username, password, type }
+  - ##### 로그인: [POST] /api/login { userId, password, type }
   - ##### 로그아웃: [POST] /api/logout
-  - ##### 이미지 등록: [POST] /api/images/upload-single { image, userId, type? }
-  - ##### 이미지 등록: [POST] /api/images/upload-multi { images, userId, type? }
-  - ##### 유저 이미지 확인: [GET] /api/images/:userId { date, type, sort? }
-  - ##### 전체 이미지 확인: [GET] /api/images/total { date, num?, offset?, sort? }
-  - ##### 이미지 수정: [PUT] /api/images/:imageId { image, type }
-  - ##### 이미지 삭제: [DELETE] /api/images/:imageId
-  - ##### 댓글 등록: [POST] /api/images/:imageId/comments { userId, comment }
-  - ##### 댓글 조회: [GET] /api/images/:imageId/comments
-  - ##### 댓글 수정: [PUT] /api/images/:imageId/comments/:commentId { userId, comment }
-  - ##### 댓글 삭제: [DELETE] /api/images/:imageId/comments/:commentId { userId }
-
+  - ##### 이미지 등록: [POST] /api/images/upload-single { image, type? }
+  - ##### 이미지 등록: [POST] /api/images/upload-multi { images, type? }
+  - ##### 유저 이미지 확인: [GET] /api/images/by-user { date, userIdx, type, sort? }
+  - ##### 전체 이미지 확인: [GET] /api/images/by-total { date, num?, offset?, sort? }
+  - ##### 이미지 수정: [PUT] /api/images/:imageIdx { image?, type? }
+  - ##### 이미지 삭제: [DELETE] /api/images/:imageIdx
+  - ##### 댓글 등록: [POST] /api/images/:imageIdx/comments { comment }
+  - ##### 댓글 조회: [GET] /api/images/:imageIdx/comments
+  - ##### 댓글 수정: [PUT] /api/images/:imageIdx/comments/:commentIdx { comment }
+  - ##### 댓글 삭제: [DELETE] /api/images/:imageIdx/comments/:commentIdx
   
 - #### DB 설계 항목
   - ##### User
     | Name      | Type        | Note       |
     |-----------|-------------|------------|
-    | id        | integer     | primaryKey |
+    | idx       | integer     | primaryKey |
     | userId    | varchar(20) |            |
     | userName  | varchar(20) |            |
     | password  | varchar(20) |            |
@@ -42,8 +41,8 @@
   - ##### Image
     | Name      | Type        | Note       |
     |-----------|-------------|------------|
-    | id        | integer     | primaryKey |
-    | userId    | varchar(20) |            |
+    | idx       | integer     | primaryKey |
+    | userIdx   | integer     |            |
     | fileName  | varchar(50) |            |
     | type      | varchar(10) |            |
     | createdAt | datetime    |            |
@@ -52,9 +51,9 @@
   - ##### Comment
     | Name      | Type         | Note       |
     |-----------|--------------|------------|
-    | id        | integer      | primaryKey |
-    | userId    | varchar(20)  |            |
-    | imageId   | integer      |            |
+    | idx       | integer      | primaryKey |
+    | userIdx   | integer      |            |
+    | imageIdx  | integer      |            |
     | comment   | varchar(255) |            |
     | createdAt | datetime     |            |
     | updatedAt | datetime     |            |
@@ -65,4 +64,5 @@
 
 ### [프로젝트 향후 계획]
 
-- #### Unit 테스트 처리 및 API/DB 고도화 작업
+- #### Unit 테스트 처리 및 고도화 작업
+- ##### * 현재 소스 리팩토링 간 순환 의존성 관련 문제로 디버깅 중

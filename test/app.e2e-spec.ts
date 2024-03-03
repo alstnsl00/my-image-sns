@@ -22,7 +22,7 @@ describe('my-image-sns (e2e)', () => {
       }),
     );
 
-    token = jwt.sign({ userId: 'testuser' }, process.env.JWT_SECRET, {
+    token = jwt.sign({ idx: 10000, userId: 'testuser' }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
 
@@ -30,7 +30,7 @@ describe('my-image-sns (e2e)', () => {
   });
 
   it('[GET] /', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Welcome to my studyNest API');
+    return request(app.getHttpServer()).get('/').expect(200).expect('imageSNS (Backend)');
   });
 
   describe('[POST] /api/users', () => {
@@ -118,12 +118,7 @@ describe('my-image-sns (e2e)', () => {
 
   describe('[POST] /api/images/upload-single (TOKEN)', () => {
     it('싱글 파일 업로드', async () => {
-      const response = await request(app.getHttpServer())
-        .post('/api/images/upload-single')
-        .set('Authorization', `Bearer ${token}`)
-        .field('userId', 'testuser')
-        .field('type', 'profile')
-        .attach('image', 'test-image.jpg');
+      const response = await request(app.getHttpServer()).post('/api/images/upload-single').set('Authorization', `Bearer ${token}`).field('type', 'profile').attach('image', 'test-image.jpg');
 
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({
@@ -139,11 +134,10 @@ describe('my-image-sns (e2e)', () => {
       const response = await request(app.getHttpServer())
         .post('/api/images/upload-multi')
         .set('Authorization', `Bearer ${token}`)
-        .field('userId', 'testuser')
         .field('type', 'profile')
         .attach('images', 'test-image.jpg')
-        .attach('images', 'awslogo.webp')
-        .attach('images', 'devopstool.webp');
+        .attach('images', 'test-image2.jpg')
+        .attach('images', 'test-image3.jpg');
 
       expect(response.statusCode).toBe(201);
       expect(response.body).toEqual({
@@ -154,9 +148,9 @@ describe('my-image-sns (e2e)', () => {
     });
   });
 
-  describe('[GET] /api/images/:userId (TOKEN)', () => {
+  describe('[GET] /api/images/by-user (TOKEN)', () => {
     it('사용자 업로드 이미지 조회', async () => {
-      const response = await request(app.getHttpServer()).get('/api/images/testuser').set('Authorization', `Bearer ${token}`).query({ date: '2023-08-04' });
+      const response = await request(app.getHttpServer()).get(`/api/images/by-user`).set('Authorization', `Bearer ${token}`).query({ userIdx: 10000, date: '2024-03-03', type: 'basic' });
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({
@@ -167,9 +161,9 @@ describe('my-image-sns (e2e)', () => {
     });
   });
 
-  describe('[GET] /api/images/total (TOKEN)', () => {
+  describe('[GET] /api/images/by-total (TOKEN)', () => {
     it('전체 업로드 이미지 조회', async () => {
-      const response = await request(app.getHttpServer()).get('/api/images/total').set('Authorization', `Bearer ${token}`).query({ date: '2023-08-04' });
+      const response = await request(app.getHttpServer()).get('/api/images/by-total').set('Authorization', `Bearer ${token}`).query({ date: '2024-03-03' });
 
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({

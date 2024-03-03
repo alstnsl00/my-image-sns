@@ -1,12 +1,12 @@
 import { Body, Controller, Post, Res, ValidationPipe } from '@nestjs/common';
 import { Response } from 'express';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { Result } from './common/result.class';
 import { LoginUserDto } from './dtos/login-user.dto';
 import { ApiService } from './api.service';
 
-@Controller()
+@Controller('api')
 @ApiTags('로그인/로그아웃')
 export class ApiController {
   constructor(private readonly apiService: ApiService) {}

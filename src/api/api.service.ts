@@ -14,6 +14,7 @@ export class ApiService {
 
   async login(loginUserData: LoginUserDto, res: Response): Promise<any> {
     const { userId, password, type } = loginUserData;
+
     const user = await this.userRepository.findOne({
       where: { userId, type },
     });
@@ -25,7 +26,7 @@ export class ApiService {
       return res.status(400).json({ status: 2, msg: '비밀번호가 유효하지 않습니다.' });
     }
 
-    const token = jwt.sign({ id: user.id, userId: user.userId }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ idx: user.idx, userId }, process.env.JWT_SECRET, {
       expiresIn: '1h',
     });
 

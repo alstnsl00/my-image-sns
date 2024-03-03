@@ -2,8 +2,8 @@ import { Controller, Get } from '@nestjs/common';
 
 @Controller('')
 export class AppController {
-  @Get()
+  @Get('/')
   init(): string {
-    return 'Welcome to my studyNest API';
+    return 'imageSNS (Backend)';
   }
 }

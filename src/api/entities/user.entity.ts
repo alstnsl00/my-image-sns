@@ -3,21 +3,12 @@ import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeor
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  idx: number;
 
-  @Column('varchar', {
-    length: 20,
-    nullable: false,
-    unique: true,
-    comment: '사용자 아이디',
-  })
+  @Column({ length: 20, nullable: false, unique: true, comment: '사용자 아이디' })
   userId: string;
 
-  @Column('varchar', {
-    length: 20,
-    nullable: false,
-    comment: '사용자 이름',
-  })
+  @Column({ length: 20, nullable: false, comment: '사용자 이름' })
   userName: string;
 
   @Column({ length: 20, nullable: false, comment: '사용자 비밀번호' })

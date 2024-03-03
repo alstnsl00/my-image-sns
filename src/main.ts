@@ -10,7 +10,7 @@ import { winstonLogger } from './middlewares/winston.middleware';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder().setTitle('my-image-sns').setDescription('이미지 기반 SNS 서비스 API 설계').setVersion('1.0.0').build();
+  const config = new DocumentBuilder().setTitle('my-image-sns').setDescription('imageSNS (Backend)').setVersion('1.0.0').build();
   const document = SwaggerModule.createDocument(app, config);
   app.useLogger(winstonLogger);
   app.use(helmet());

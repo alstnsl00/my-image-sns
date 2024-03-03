@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsString, IsOptional, IsInt } from 'class-validator';
 
 export class TotalImageDto {
   @IsString()
@@ -7,14 +8,16 @@ export class TotalImageDto {
   readonly date: string;
 
   @IsOptional()
-  @IsString()
+  @IsInt()
+  @Type(() => Number)
   @ApiProperty({ description: '이미지 조회 페이지 번호' })
-  readonly num: string;
+  readonly num: number;
 
   @IsOptional()
-  @IsString()
+  @IsInt()
+  @Type(() => Number)
   @ApiProperty({ description: '이미지 조회 페이지 갯수' })
-  readonly offset: string;
+  readonly offset: number;
 
   @IsOptional()
   @IsString()

@@ -1,11 +1,12 @@
 import { Body, Controller, Post, ValidationPipe, Param, Put, ParseIntPipe, BadRequestException } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+
 import { UsersService } from './users.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { Result } from '../common/result.class';
 import { UpdateUserDto } from '../dtos/update-user.dto';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-@Controller('users')
+@Controller('api/users')
 @ApiTags('사용자 관련 처리')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

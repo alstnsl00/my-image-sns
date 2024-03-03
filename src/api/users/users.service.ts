@@ -1,5 +1,4 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm'; // 이건 뭐지?
 import { Repository } from 'typeorm';
 
 import * as authUtil from '../../utils/auth.util';
@@ -17,7 +16,7 @@ export class UsersService {
     const { userId, userName, password, type } = createUserData;
 
     const existUser = await this.userRepository.findOne({
-      where: { userId },
+      where: { userId, type },
     });
     if (existUser) {
       return { status: 1, msg: '이미 동일한 사용자가 존재합니다.' };
@@ -42,18 +41,23 @@ export class UsersService {
     }
   }
 
-  async modify(id: number, updateUserData: UpdateUserDto): Promise<Result> {
+  async modify(idx: number, updateUserData: UpdateUserDto): Promise<Result> {
     const { userName, password } = updateUserData;
 
     const user = await this.userRepository.findOne({
-      where: { id },
+      where: { idx },
     });
     if (!user) {
       return { status: 1, msg: '사용자를 찾을 수 없습니다.' };
     }
 
-    if (userName) {
-      user.userName = userName;
+    if (userName) user.userName = userName;
+    if (password) {
+      const hashedPassword = await authUtil.createHashedPassword(password);
+      user.password = hashedPassword;
+    }
+
+    if (userName || password) {
       try {
         const updateUser = await this.userRepository.save(user);
 
@@ -61,24 +65,8 @@ export class UsersService {
       } catch (e) {
         return { status: 2, msg: `회원정보 갱신간 예기치 않은 오류가 발생하였습니다. [${e}]` };
       }
+    } else {
+      return { status: 3, msg: '갱신할 정보를 입력하여 주십시오.' };
     }
-
-    if (password) {
-      if ((await authUtil.validateWithWord(password)) === 'regError') {
-        return { status: 3, msg: '비밀번호가 유효하지 않습니다.' };
-      }
-
-      const hashedPassword = await authUtil.createHashedPassword(password);
-
-      user.password = hashedPassword;
-      try {
-        const updateUser = await this.userRepository.save(user);
-        return { status: 0, msg: '회원정보가 정상적으로 갱신되었습니다.', data: updateUser };
-      } catch (e) {
-        return { status: 4, msg: `회원가입간 예기치 않은 오류가 발생하였습니다. [${e}]` };
-      }
-    }
-
-    return { status: 5, msg: '갱신할 정보를 입력하여 주십시오.' };
   }
 }

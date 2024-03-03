@@ -18,7 +18,10 @@ export class JwtMiddleware implements NestMiddleware {
 
       try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        if (decoded['userId']) next();
+        if (decoded['idx']) {
+          req.idx = decoded['idx'];
+          next();
+        }
       } catch (err) {
         return res.status(401).json({ status: 2, msg: '허용된 요청을 위해 로그인을 해주십시오.' });
       }
