@@ -17,11 +17,11 @@ export class UsersController {
     return await this.usersService.join(joinUserData);
   }
 
-  @Put('/:id')
+  @Put('/:idx')
   @ApiOperation({ summary: '사용자 정보 수정' })
-  async modify(@Param('id', new ParseIntPipe()) id: number, @Body(new ValidationPipe()) updateUserData: UpdateUserDto): Promise<Result> {
+  async modify(@Param('idx', new ParseIntPipe()) id: number, @Body(new ValidationPipe()) updateUserData: UpdateUserDto): Promise<Result> {
     if (+id < 1) {
-      throw new BadRequestException('id는 0보다 큰 값이어야 합니다.');
+      throw new BadRequestException('idx는 0보다 큰 값이어야 합니다.');
     }
 
     return await this.usersService.modify(id, updateUserData);

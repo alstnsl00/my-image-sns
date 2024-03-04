@@ -12,7 +12,7 @@
 
 - #### API 구현 항목
   - ##### 회원가입: [POST] /api/users { userId, userName, password, type? }
-  - ##### 회원정보 수정: [PUT] /api/users/:id { userName, password? }
+  - ##### 회원정보 수정: [PUT] /api/users/:idx { userName?, password? }
   - ##### 로그인: [POST] /api/login { userId, password, type }
   - ##### 로그아웃: [POST] /api/logout
   - ##### 이미지 등록: [POST] /api/images/upload-single { image, type? }

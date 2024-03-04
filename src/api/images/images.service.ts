@@ -170,7 +170,7 @@ export class ImagesService {
 
         return { status: 0, msg: '이미지 정보가 업데이트 되었습니다.', data: newImage };
       } else {
-        return { status: 2, msg: '이미지 수정은 본인만 가능합니다.' };
+        return { status: 2, msg: '이미지 정보 업데이트는 본인만 가능합니다.' };
       }
     } catch (e) {
       return { status: 3, msg: `이미지 정보 업데이트간 예기치 않은 오류가 발생하였습니다. [${e}]` };

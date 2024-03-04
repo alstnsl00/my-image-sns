@@ -47,7 +47,7 @@ export class ImagesController {
   @UseInterceptors(FileInterceptor('image'))
   async update(@UploadedFile() file: Express.Multer.File, @Param('imageIdx', new ParseIntPipe()) imageIdx: number, @Body() updateImageData: UpdateImageDto, @Req() req: Request): Promise<Result> {
     if (+imageIdx < 1) {
-      throw new BadRequestException('imageId는 0보다 큰 값이어야 합니다.');
+      throw new BadRequestException('imageIdx는 0보다 큰 값이어야 합니다.');
     }
 
     return await this.imagesService.updateImage(file, imageIdx, updateImageData, req);
@@ -57,7 +57,7 @@ export class ImagesController {
   @ApiOperation({ summary: '업로드 이미지 삭제' })
   async delete(@Param('imageIdx', new ParseIntPipe()) imageIdx: number, @Req() req: Request): Promise<Result> {
     if (+imageIdx < 1) {
-      throw new BadRequestException('imageId는 0보다 큰 값이어야 합니다.');
+      throw new BadRequestException('imageIdx는 0보다 큰 값이어야 합니다.');
     }
 
     return await this.imagesService.deleteImage(imageIdx, req);
@@ -67,7 +67,7 @@ export class ImagesController {
   @ApiOperation({ summary: '이미지의 댓글 등록' })
   async add(@Param('imageIdx', new ParseIntPipe()) imageIdx: number, @Body(new ValidationPipe()) commentData: CommentDto, @Req() req: Request): Promise<Result> {
     if (+imageIdx < 1) {
-      throw new BadRequestException('imageId는 0보다 큰 값이어야 합니다.');
+      throw new BadRequestException('imageIdx는 0보다 큰 값이어야 합니다.');
     }
 
     return await this.imagesService.addComment(imageIdx, commentData, req);
@@ -77,7 +77,7 @@ export class ImagesController {
   @ApiOperation({ summary: '이미지의 댓글 조회' })
   async get(@Param('imageIdx', new ParseIntPipe()) imageIdx: number): Promise<Result> {
     if (+imageIdx < 1) {
-      throw new BadRequestException('imageId는 0보다 큰 값이어야 합니다.');
+      throw new BadRequestException('imageIdx는 0보다 큰 값이어야 합니다.');
     }
 
     return await this.imagesService.comment(imageIdx);
@@ -92,7 +92,7 @@ export class ImagesController {
     @Req() req: Request,
   ): Promise<Result> {
     if (+commentIdx < 1) {
-      throw new BadRequestException('commentId는 0보다 큰 값이어야 합니다.');
+      throw new BadRequestException('commentIdx는 0보다 큰 값이어야 합니다.');
     }
 
     return await this.imagesService.modifyComment(imageIdx, commentIdx, commentData, req);
@@ -102,7 +102,7 @@ export class ImagesController {
   @ApiOperation({ summary: '이미지의 댓글 삭제' })
   async remove(@Param('imageIdx', new ParseIntPipe()) imageIdx: number, @Param('commentIdx', new ParseIntPipe()) commentIdx: number, @Req() req: Request): Promise<Result> {
     if (+commentIdx < 1) {
-      throw new BadRequestException('commentId는 0보다 큰 값이어야 합니다.');
+      throw new BadRequestException('commentIdx는 0보다 큰 값이어야 합니다.');
     }
 
     return await this.imagesService.removeComment(imageIdx, commentIdx, req);
