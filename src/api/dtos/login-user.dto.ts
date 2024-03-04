@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class LoginUserDto {
   @IsString()
@@ -10,6 +10,7 @@ export class LoginUserDto {
   @ApiProperty({ description: '사용자 비밀번호' })
   readonly password: string;
 
+  @IsOptional()
   @IsString()
   @ApiProperty({ description: '사용자 구분' })
   readonly type: string;
