@@ -13,7 +13,10 @@ export class ApiService {
   constructor(@Inject('USER_REPOSITORY') private userRepository: Repository<User>) {}
 
   async login(loginUserData: LoginUserDto, res: Response): Promise<any> {
-    const { userId, password, type } = loginUserData;
+    const { userId, password } = loginUserData;
+
+    let type = 'user';
+    if (loginUserData.type) type = loginUserData.type;
 
     const user = await this.userRepository.findOne({
       where: { userId, type },
