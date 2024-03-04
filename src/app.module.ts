@@ -3,8 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { Request, Response, NextFunction } from 'express';
 
 import { AppController } from './app.controller';
-import { ApiModule } from './api/api.module';
 import { JwtMiddleware } from './middlewares/jwt.middleware';
+import { ImagesModule } from './api/images/images.module';
+import { UsersModule } from './api/users/users.module';
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
@@ -21,7 +22,7 @@ export class LoggerMiddleware implements NestMiddleware {
 }
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), ApiModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), UsersModule, ImagesModule],
   controllers: [AppController],
   providers: [],
 })

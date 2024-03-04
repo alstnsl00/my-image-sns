@@ -6,8 +6,8 @@ import { ImagesService } from './images.service';
 import { ImagesController } from './images.controller';
 import { Image } from '../entities/image.entity';
 import { Comment } from '../entities/comment.entity';
-import { DatabaseModule } from '../../datasources/database.module';
 import { MulterConfigService } from '../common/multer.config';
+import { DatabaseModule } from '../../datasources/database.module';
 
 @Module({
   imports: [
