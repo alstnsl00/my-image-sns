@@ -176,6 +176,7 @@ export class ImagesService {
       return { status: 3, msg: `이미지 정보 업데이트간 예기치 않은 오류가 발생하였습니다. [${e}]` };
     }
   }
+  
   async deleteImage(imageIdx: number, req: any): Promise<Result> {
     try {
       const image = await this.imageRepository.findOne({
